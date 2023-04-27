@@ -1,6 +1,19 @@
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+    vim.cmd.packadd('packer.nvim')
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
+
 return require('packer').startup(function()
   local load = function(name)
-    return string.format("require('plugins/%s')", name)
+    return string.format("require('plugins.%s')", name)
   end
   local setup = function(name)
     return string.format("require('%s').setup()", name)
@@ -32,6 +45,7 @@ return require('packer').startup(function()
   use { 'stevearc/dressing.nvim' }
   use { 'simrat39/symbols-outline.nvim', config = load('symbols-outline') }
   use { 'williamboman/mason.nvim', config = setup('mason') }
+  use { 'williamboman/mason-lspconfig.nvim', config = load('mason-lspconfig') }
   use { 'nvim-telescope/telescope.nvim',
     config = load('telescope'),
     requires = {
@@ -53,4 +67,8 @@ return require('packer').startup(function()
 
   -- use lua undotree
   use { 'mbbill/undotree', config = load('undotree') }
+
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)
