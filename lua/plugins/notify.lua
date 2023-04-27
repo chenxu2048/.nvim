@@ -1,6 +1,5 @@
 vim.notify = require('notify')
 vim.notify.setup({
-  render = 'compact',
   stages = 'static',
 })
 
