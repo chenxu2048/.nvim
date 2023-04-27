@@ -25,7 +25,7 @@ return require('packer').startup(function()
     branch = 'v2',
     config = load('hop'),
   }
-  use { 'rcarriga/nvim-notify', config = load('nvim-notify') }
+  use { 'rcarriga/nvim-notify', config = load('notify') }
   use { 'Mofiqul/vscode.nvim', config = load('vscode') }
   use { 'akinsho/toggleterm.nvim', tag = '*', config = load('toggleterm') }
   use { 'folke/neodev.nvim', config = setup('neodev') }
@@ -33,7 +33,7 @@ return require('packer').startup(function()
   use { 'kylechui/nvim-surround', config = setup('nvim-surround') }
   use { 'lewis6991/gitsigns.nvim', config = load('gitsigns') }
   use { 'lvimuser/lsp-inlayhints.nvim', config = load('inlayhints') }
-  use { 'neovim/nvim-lspconfig', config = load('nvim-lspconfig') }
+  use { 'neovim/nvim-lspconfig', config = load('lspconfig') }
   use { 'nvim-lualine/lualine.nvim', config = load('lualine') }
   use { 'nvim-tree/nvim-tree.lua', config = load('nvim-tree') }
   use { 'nvim-tree/nvim-web-devicons' }
@@ -54,7 +54,7 @@ return require('packer').startup(function()
     },
   }
   use { 'hrsh7th/nvim-cmp',
-    config = load('cmp-nvim'),
+    config = load('cmp'),
     requires = {
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-buffer' },

@@ -66,3 +66,6 @@ vim.keymap.set('n', '<Leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<Leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<Leader>fm', builtin.keymaps, {})
 vim.keymap.set('n', '<Leader>fr', builtin.reloader, {})
+
+telescope.load_extension('notify')
+vim.keymap.set('', '<Leader>fn', telescope.extensions.notify.notify)
