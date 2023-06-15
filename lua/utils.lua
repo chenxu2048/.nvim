@@ -38,7 +38,33 @@ local function reload()
   vim.api.nvim_get_keymap('')
 end
 
+local function bind(f, ...)
+  local v = { ... };
+  return function()
+    return f(unpack(v))
+  end
+end
+
+local function binds(f, ...)
+  local v = { ... };
+  return function(...)
+    local all = vim.list_extend(vim.deepcopy(v), { ... })
+    return f(unpack(all))
+  end
+end
+
+local mapping = {
+  map = binds(vim.keymap.set, ''),
+  nmap = binds(vim.keymap.set, 'n'),
+  imap = binds(vim.keymap.set, 'i'),
+  xmap = binds(vim.keymap.set, 'x'),
+  tmap = binds(vim.keymap.set, 't'),
+  vmap = binds(vim.keymap.set, 'v'),
+};
+
 return {
   enable_auto_format = enable_auto_format,
   capitalize = capitalize,
+  bind = bind,
+  mapping = mapping,
 }

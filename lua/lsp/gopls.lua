@@ -1,4 +1,4 @@
-require('lspconfig').gopls.setup({
+return {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   settings = {
     gopls = {
@@ -18,4 +18,4 @@ require('lspconfig').gopls.setup({
     GOARCH = 'amd64',
     CGO_ENABLED = '1',
   },
-})
+}

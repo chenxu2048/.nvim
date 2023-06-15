@@ -1,4 +1,15 @@
 local path = require('lspconfig/util').path
+local root_pattern = require('lspconfig/util').root_pattern
+
+local root_files = {
+  'pyproject.toml',
+  'setup.py',
+  'setup.cfg',
+  'requirements.txt',
+  'Pipfile',
+  'pyrightconfig.json',
+  'requirements',
+}
 
 local function get_python_path(workspace)
   if vim.env.VIRTUAL_ENV then
@@ -13,7 +24,7 @@ local function get_python_path(workspace)
   return exepath('python3') or exepath('python') or 'python'
 end
 
-require('lspconfig').pyright.setup({
+return {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   settings = {
     pyright = {
@@ -25,6 +36,6 @@ require('lspconfig').pyright.setup({
   },
   before_init = function(_, config)
     config.settings.python.pythonPath = get_python_path(config.root_dir)
-  end
-})
-
+  end,
+  root_dir = root_pattern(root_files),
+}

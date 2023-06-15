@@ -1,4 +1,4 @@
-require('utils').enable_auto_format('py')
+-- require('utils').enable_auto_format('py')
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('PythonLspConfig', {}),

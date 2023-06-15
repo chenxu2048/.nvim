@@ -26,6 +26,10 @@ return require('packer').startup(function()
     config = load('hop'),
   }
   use { 'rcarriga/nvim-notify', config = load('notify') }
+  use { 'sindrets/diffview.nvim' }
+  use { 'mfussenegger/nvim-dap' }
+  use { 'rcarriga/nvim-dap-ui' }
+  use { 'akinsho/git-conflict.nvim', tag = "*", config = setup('git-conflict') }
   use { 'Mofiqul/vscode.nvim', config = load('vscode') }
   use { 'akinsho/toggleterm.nvim', tag = '*', config = load('toggleterm') }
   use { 'folke/neodev.nvim', config = setup('neodev') }

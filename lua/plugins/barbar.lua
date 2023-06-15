@@ -11,14 +11,29 @@ require('barbar').setup({
 local api = require('barbar.api')
 local bbye = require('barbar.bbye')
 local opts = { buffer = false, remap = false }
-local map = vim.keymap.set
+local utils = require('utils')
+local map = utils.mapping.map;
 
-map('', '<Leader>bp', function() api.goto_buffer_relative(-1) end, opts)
-map('', '<Leader>bn', function() api.goto_buffer_relative(1) end, opts)
-map('', 'gT', function() api.goto_buffer_relative(-1) end, opts)
-map('', 'gt', function() api.goto_buffer_relative(1) end, opts)
-map('', '<Leader>b', function() api.pick_buffer() end, opts)
-map('', '<Leader>bb', function() api.pick_buffer() end, opts)
-map('', '<Leader>bx', function() api.close_all_but_current_or_pinned() end, opts)
-map('', '<Leader>bc', function() bbye.bdelete(false, vim.api.nvim_get_current_buf(), {}) end, opts)
-map('', '<Leader>bd', function() api.pick_buffer_delete() end, opts)
+local function opts(desc)
+  return {
+    buffer = false,
+    remap = false,
+    desc = desc,
+  }
+end
+
+local maps = {
+  { '<Leader>bp', utils.bind(api.goto_buffer_relative, -1),        opts('Previous buffer') },
+  { '<Leader>bn', utils.bind(api.goto_buffer_relative, 1),         opts('Next buffer') },
+  { 'gT',         utils.bind(api.goto_buffer_relative, -1),        opts('Previous buffer') },
+  { 'gt',         utils.bind(api.goto_buffer_relative, 1),         opts('Next buffer') },
+  { '<Leader>b',  utils.bind(api.pick_buffer),                     opts('Select buffer') },
+  { '<Leader>bb', utils.bind(api.pick_buffer),                     opts('Select buffer') },
+  { '<Leader>bx', utils.bind(api.close_all_but_current_or_pinned), opts('Remove unpinned buffer') },
+  { '<Leader>bd', utils.bind(api.pick_buffer_delete),              opts('Remove buffers') },
+  { '<Leader>bc', utils.bind(bbye.bdelete, false, 0, {}),          opts('Close current buffer') },
+}
+
+for _, value in ipairs(maps) do
+  map(value[1], value[2], value[3])
+end

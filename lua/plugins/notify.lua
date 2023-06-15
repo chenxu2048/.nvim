@@ -3,4 +3,6 @@ vim.notify.setup({
   stages = 'static',
 })
 
-vim.keymap.set('', '<Leader>n', vim.notify.dismiss)
+local map = require('utils').mapping.map
+
+map('<Leader>n', vim.notify.dismiss, { desc = 'Search notifications' })

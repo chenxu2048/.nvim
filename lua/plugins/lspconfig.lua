@@ -1,4 +1,5 @@
 local telescope = require('telescope.builtin')
+local map = require('utils').mapping.map
 
 local lsp_keymaps = {
   gd = telescope.lsp_definitions,
@@ -29,14 +30,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local opts = { buffer = ev.buf }
 
     for key, func in pairs(lsp_keymaps) do
-      vim.keymap.set('', '<Leader>' .. key, func, opts)
+      map('<Leader>' .. key, func, opts)
     end
 
     for key, severity in pairs(diagnostics) do
-      vim.keymap.set('', '[' .. key, function()
+      map('[' .. key, function()
         vim.diagnostic.goto_prev({ severity = severity })
       end, opts)
-      vim.keymap.set('', ']' .. key, function()
+      map(']' .. key, function()
         vim.diagnostic.goto_next({ severity = severity })
       end, opts)
     end
