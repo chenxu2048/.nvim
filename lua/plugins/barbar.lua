@@ -1,4 +1,5 @@
 vim.g.barbar_auto_setup = false
+
 require('barbar').setup({
   sidebar_filetypes = {
     NvimTree = true,
@@ -10,9 +11,7 @@ require('barbar').setup({
 
 local api = require('barbar.api')
 local bbye = require('barbar.bbye')
-local opts = { buffer = false, remap = false }
 local utils = require('utils')
-local map = utils.mapping.map;
 
 local function opts(desc)
   return {
@@ -22,7 +21,7 @@ local function opts(desc)
   }
 end
 
-local maps = {
+utils.keymaps({
   { '<Leader>bp', utils.bind(api.goto_buffer_relative, -1),        opts('Previous buffer') },
   { '<Leader>bn', utils.bind(api.goto_buffer_relative, 1),         opts('Next buffer') },
   { 'gT',         utils.bind(api.goto_buffer_relative, -1),        opts('Previous buffer') },
@@ -32,8 +31,4 @@ local maps = {
   { '<Leader>bx', utils.bind(api.close_all_but_current_or_pinned), opts('Remove unpinned buffer') },
   { '<Leader>bd', utils.bind(api.pick_buffer_delete),              opts('Remove buffers') },
   { '<Leader>bc', utils.bind(bbye.bdelete, false, 0, {}),          opts('Close current buffer') },
-}
-
-for _, value in ipairs(maps) do
-  map(value[1], value[2], value[3])
-end
+})

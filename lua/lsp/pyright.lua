@@ -8,7 +8,7 @@ local root_files = {
   'requirements.txt',
   'Pipfile',
   'pyrightconfig.json',
-  'requirements',
+  'misc/requirements',
 }
 
 local function get_python_path(workspace)

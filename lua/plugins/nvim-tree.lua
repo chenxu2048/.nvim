@@ -22,15 +22,15 @@ require('nvim-tree').setup({
       window_picker = {
         exclude = {
           filetype = {
-            "notify",
-            "packer",
-            "qf",
-            "diff",
-            "fugitive",
-            "fugitiveblame",
-            "undotree", -- ignore undotree
+            'notify',
+            'packer',
+            'qf',
+            'diff',
+            'fugitive',
+            'fugitiveblame',
+            'undotree', -- ignore undotree
           },
-          buftype  = { "nofile", "terminal", "help", }
+          buftype = { 'nofile', 'terminal', 'help' },
         },
       },
     },
@@ -44,15 +44,15 @@ vim.keymap.set('n', '<Leader>tt', function()
   api.tree.toggle({ focus = true })
 end)
 vim.keymap.set('n', '<Leader>tl', function()
-  api.tree.find_file { open = true, focus = true }
+  api.tree.find_file({ open = true, focus = true })
 end)
 
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
+vim.api.nvim_create_autocmd({ 'VimEnter' }, {
   callback = function(data)
     if vim.fn.isdirectory(data.file) == 1 then
       vim.cmd.cd(data.file)
       require('nvim-tree.api').tree.open()
       vim.api.nvim_exec_autocmds('BufWinEnter', { buffer = vim.fn.bufnr('#') })
     end
-  end
+  end,
 })

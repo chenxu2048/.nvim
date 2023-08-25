@@ -1,7 +1,15 @@
 local map = require('utils').mapping.map
+local keymaps = require('utils').keymaps
 
-map('<Leader><Esc>', function()
+local function desc(desc)
+  return { desc = desc }
+end
+local function clear_register()
   vim.fn.setreg('/', '')
-end, { desc = 'clear search register' })
-map('<C-j>', 'gj', { desc = 'Move GUI line down' })
-map('<C-k>', 'gk', { desc = 'Move GUI line up' })
+end
+
+keymaps({
+  { '<Leader><Esc>', clear_register, desc('clear search register') },
+  { '<C-j>',         'gj',           { desc = 'Move GUI line down' } },
+  { '<C-k>',         'gk',           { desc = 'Move GUI line up' } },
+}, '')

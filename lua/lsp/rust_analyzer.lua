@@ -1,12 +1,12 @@
 return {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   settings = {
-    ["rust-analyzer"] = {
+    ['rust-analyzer'] = {
       imports = {
         granularity = {
-          group = "module",
+          group = 'module',
         },
-        prefix = "self",
+        prefix = 'self',
       },
       cargo = {
         buildScripts = {
@@ -14,8 +14,8 @@ return {
         },
       },
       procMacro = {
-        enable = true
+        enable = true,
       },
-    }
-  }
+    },
+  },
 }

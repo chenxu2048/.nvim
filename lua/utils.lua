@@ -17,7 +17,7 @@ local function enable_auto_format(type, callback)
       vim.api.nvim_create_autocmd('BufWritePre', {
         group = vim.api.nvim_create_augroup('LspGroup' .. capitalize(type), {}),
         pattern = pattern,
-        callback = callback
+        callback = callback,
       })
     end,
   })
@@ -39,14 +39,14 @@ local function reload()
 end
 
 local function bind(f, ...)
-  local v = { ... };
+  local v = { ... }
   return function()
     return f(unpack(v))
   end
 end
 
 local function binds(f, ...)
-  local v = { ... };
+  local v = { ... }
   return function(...)
     local all = vim.list_extend(vim.deepcopy(v), { ... })
     return f(unpack(all))
@@ -60,11 +60,18 @@ local mapping = {
   xmap = binds(vim.keymap.set, 'x'),
   tmap = binds(vim.keymap.set, 't'),
   vmap = binds(vim.keymap.set, 'v'),
-};
+}
+
+local function keymaps(maps, mode)
+  for _, value in ipairs(maps) do
+    vim.keymap.set(mode or '', value[1], value[2], value[3])
+  end
+end
 
 return {
   enable_auto_format = enable_auto_format,
   capitalize = capitalize,
   bind = bind,
+  keymaps = keymaps,
   mapping = mapping,
 }

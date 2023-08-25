@@ -2,10 +2,18 @@ local hop = require('hop')
 hop.setup({})
 
 local directions = require('hop.hint').HintDirection
-vim.keymap.set('', '<Leader>ef', function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR })
-end, { remap = true })
+local utils = require('utils')
 
-vim.keymap.set('', '<Leader>eb', function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR })
-end, { remap = true })
+local move_forward = utils.bind(hop.hint_char1, { direction = directions.AFTER_CURSOR })
+local move_backward = utils.bind(hop.hint_char1, { direction = directions.BEFORE_CURSOR })
+local function opt(desc)
+  return {
+    remap = true,
+    desc = desc,
+  }
+end
+
+utils.keymaps({
+  { '<Leader>ef', move_forward,  opt('Move forward') },
+  { '<Leader>eb', move_backward, opt('Move backward') },
+})

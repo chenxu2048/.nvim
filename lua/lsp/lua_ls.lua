@@ -7,6 +7,6 @@ return {
       hint = {
         enable = true,
       },
-    }
-  }
+    },
+  },
 }

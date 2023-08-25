@@ -1,20 +1,21 @@
-require('toggleterm').setup {
+require('toggleterm').setup({
   direction = 'float',
   float_opts = {
     border = 'single',
   },
   start_in_insert = true,
-}
+})
 
 local term_group = vim.api.nvim_create_augroup('FloatTerm', {})
 vim.api.nvim_create_autocmd('FileType', {
   group = term_group,
   pattern = 'toggleterm',
   callback = function(ev)
-    local function noop()
-    end
+    local function noop() end
     local function no_arg(f)
-      return function() f() end
+      return function()
+        f()
+      end
     end
     local opt = { buffer = ev.buf }
     vim.keymap.set('n', '<C-O>', noop, opt)

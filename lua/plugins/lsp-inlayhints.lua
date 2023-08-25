@@ -11,9 +11,9 @@ require('lsp-inlayhints').setup({
 })
 
 update_highlight()
-vim.api.nvim_create_autocmd("ColorScheme", {
+vim.api.nvim_create_autocmd('ColorScheme', {
   group = vim.api.nvim_create_augroup(au, {}),
-  pattern = "*",
+  pattern = '*',
   callback = update_highlight,
 })
 
